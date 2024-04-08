@@ -4,7 +4,7 @@ from pywa.types import Message, CallbackButton
 # from pywa.filters import  CallbackFilter
 import requests
 # import mysql.connector
-
+import os
 
 
 def gpt(uid,text):
@@ -70,7 +70,8 @@ def hello(client: WhatsApp, message: Message):
 
 
 
-
+        cwd = os.getcwd()
+        print(cwd)
         message.reply_document(
         f"birthday/{filename}",
         # document="invoice.pdf",
