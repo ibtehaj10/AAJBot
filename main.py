@@ -27,7 +27,7 @@ db = Chroma(persist_directory="mydb", embedding_function=embeddings)
 # embedding_function = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
 # db = Chroma.from_documents(docs, embedding_function)
 ############################## 
-def retrieve_combined_documents(query, max_combined_docs=2):
+def retrieve_combined_documents(query, max_combined_docs=4):
     retriever = db.as_retriever(search_type="mmr")
 
     rev_doc = retriever.get_relevant_documents(query)
