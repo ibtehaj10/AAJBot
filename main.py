@@ -21,7 +21,7 @@ client = OpenAI(api_key=apikey)
 app = Flask(__name__)
 
 
-embeddings = OpenAIEmbeddings(openai_api_key=apikeys)
+embeddings = OpenAIEmbeddings(openai_api_key=apikey)
 db = Chroma(persist_directory="mydb", embedding_function=embeddings)
 # db.get()
 # embedding_function = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
