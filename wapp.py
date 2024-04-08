@@ -77,6 +77,10 @@ def hello(client: WhatsApp, message: Message):
         # document="invoice.pdf",
         body=filename
         )
+                
+        message.reply_text(
+            text="Please provide your full name so our team can help you out with booking",
+        )
 
 
 
