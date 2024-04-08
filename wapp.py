@@ -34,7 +34,7 @@ wa = WhatsApp(
     server=flask_app,
     verify_token='asd',
 )
-
+filename= ""
 @wa.on_message()
 def hello(client: WhatsApp, message: Message):
     # message.react('👋')
@@ -49,7 +49,7 @@ def hello(client: WhatsApp, message: Message):
             text=reply,
         )
     else:
-        filename= ""
+        
         if 'bounce' in reply :
             filename = 'Bouncekhi.pdf'
         elif 'giggle' in reply:
