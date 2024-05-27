@@ -71,7 +71,7 @@ def gpt(inp,prompt):
                             . Super Space Ocean Mall
                             . Super Space Shareef Complex 
                - after this you'll return the link of birthday packages specific to location he's interested in like 
-                        if he is intrested in Giggle Town you'll send him `www.joyland.com/giggletown`
+                        if he is intrested in Giggle Town you'll send him `www.joyland.com/packages/giggletown`
             - All links are here:
                 www.joyland.com/packages/bouncekhi,
                www.joyland.com/packages/peekabearnothwalk
