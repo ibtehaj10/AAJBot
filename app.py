@@ -73,13 +73,20 @@ def gpt(inp,prompt):
                www.joyland.com/packages/superspaceoceanmall
                www.joyland.com/packages/superspacemillenium
                www.joyland.com/packages/superspaceshareefcomplex
-           - if they are interested ask for the number of guests then confirm his name, facility he picks and number of guests
+           - if they are interested ask for the number of guests, Date and time they wants to come
+           - then confirm his name, the facility he picks and the number of guests
            
 
 FEEDBACK
 if user want to give any feedback you have to ask him nicely.
 
-
+SCHOOL
+if user wants to plan school trip in any of our product
+- you have ask his school name
+- number of students they wants to bring
+- Date and time 
+- Entity they're intrested 
+- after that just tell them our support team will contact them soon
 
 """}
     rcd = retrieve_combined_documents(prompt)
