@@ -2,11 +2,15 @@ from api import apikey
 from flask import Flask, request, jsonify
 import pandas as pd
 from csv import writer
-
+from collections import Counter
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 import os
 import time
 import openai
 import json
+import datetime
 import jsonpickle
 from langchain.document_loaders import PyPDFLoader
 # from langchain.embeddings.sentence_transformer import SentenceTransformerEmbeddings
@@ -20,7 +24,10 @@ from api import apikey
 client = OpenAI(api_key=apikey)
 app = Flask(__name__)
 
-
+nltk.download('punkt')
+nltk.download('stopwords')
+stop_words = set(stopwords.words('english'))
+common_words_to_ignore = {'is', 'am', 'are',"i"}
 embeddings = OpenAIEmbeddings(openai_api_key=apikeys)
 db = Chroma(persist_directory="mydb", embedding_function=embeddings)
 # db.get()
@@ -146,14 +153,14 @@ def check_user():
     if isexist:
         # try:
         print(path," found!")
-        write_chat({"role":"user","content":prompt},path)
+        write_chat({"role":"user","content":prompt,"datetime":str(datetime.datetime.now()},path)
         # print()
         chats = get_chats(path)
         print(chats)
         send = gpt(chats,prompt)
         reply = send.choices[0].message.content
         print("reply    ",reply)
-        write_chat({"role":"assistant","content":reply},path)
+        write_chat({"role":"assistant","content":reply,"datetime":str(datetime.datetime.now()},path)
         return {"message":reply,"status":"OK"}
         # except:
         #     return {"message":"something went wrong!","status":"404"}
@@ -184,7 +191,39 @@ def get_chatss():
 
 
 
+################################# ANALYSIS START HERE ####################################
+def load_chats(directory_path):
+    """ Load chat data from multiple JSON files in a given directory. """
+    chats = []
+    for filename in os.listdir(directory_path):
+        if filename.endswith('.json'):  # Ensure the file is a JSON file
+            file_path = os.path.join(directory_path, filename)
+            with open(file_path, 'r', encoding='utf-8') as file:
+                chats.extend(json.load(file)['chat'])
+    return chats
 
+def count_keywords(chat_data):
+    """ Count keywords in chat data, excluding stop words. """
+    word_counts = Counter()
+    for chat in chat_data:
+        # Assuming the chat is a list of dictionaries with keys 'user' and 'assistant'
+        user_words = word_tokenize(chat['content'].lower())
+        # assistant_words = word_tokenize(chat['assistant'].lower())
+        
+        # Filter out stop words and count the rest
+        words = [word for word in user_words  if word.isalpha() and word not in stop_words]
+        word_counts.update(words)
+    
+    return word_counts
+
+
+@app.route('/keywords', methods=['GET'])
+def keywords():
+    directory_path = 'chats/'  # Update this path
+    all_chats = load_chats(directory_path)
+    keyword_counts = count_keywords(all_chats)
+    print(keyword_counts.most_common(10))
+    return keyword_counts.most_common(10)
 
 if __name__ == '__main__':
     app.run(port=5008)
