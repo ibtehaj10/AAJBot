@@ -194,7 +194,8 @@ def check_user():
 @app.route('/get_chats', methods=['POST'])
 def get_chatss():
     ids = request.json['user_id']
-    return jsonpickle.encode(get_chats(ids))
+    path = str(os.getcwd())+'//chats//'+ids+'.json'
+    return jsonpickle.encode(get_chats(path))
 
 ################################# get_latest_datetime_per_json ####################################
 def get_latest_datetime_per_json(directory_path):
