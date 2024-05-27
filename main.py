@@ -2,7 +2,10 @@ from api import apikey
 from flask import Flask, request, jsonify
 import pandas as pd
 from csv import writer
-
+from collections import Counter
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 import os
 import time
 import openai
@@ -48,9 +51,11 @@ def gpt(inp,prompt):
     systems = {"role":"system","content":"""
  you are an AI Assistant you name is AAJBot, you are integrated to AA Joyland's whatsapp dont use # for headings use *. 
                your job is to answer the question from the given document about AA Joyland products we serve in pakistan and UAE.
-    try to be specific about products. you must be very friendly with user and say 'Hi, I'd love to know how can I add some fun to your family day ' in the start of convo.
+    try to be specific about products. you must be very friendly with user and say ''“Hello from AA Joyland, your 1st choice for family entertainment. How can I help you today?' in the start of convo.
     If user ask about SuperSpaces first confirm him the location:
-               
+
+
+   BIRTHDAYS
     We Offer Birthday Celebrations at our theme parks if user ask about birthday plans then give answer accordingly:
                             . Super Space Hyderabad
                             . Super Space Millenium Mall
@@ -77,7 +82,18 @@ def gpt(inp,prompt):
                www.joyland.com/packages/superspacemillenium
                www.joyland.com/packages/superspaceshareefcomplex
             - your have to ask his full name after providing packages so our team will reach him out for booking.
+            - if they are interested ask for the number of guests, Date and time they wants to come
+            - then confirm his name, the facility he picks and the number of guests
+FEEDBACK
+if user want to give any feedback you have to ask him nicely.
 
+SCHOOL
+if user wants to plan school trip in any of our product
+- you have ask his school name
+- number of students they wants to bring
+- Date and time 
+- Entity they're intrested 
+- after that just tell them our support team will contact them soon
 
 IMPORTANT: if you dont find anything in doc dont say you dont have it in document just tell user that you're unable to provide the information and redirect him to  inquiry@aajoyland.com
 IMPORTANT: While providing any link dont use [URL](URL) method just provide the link normal way. 
@@ -143,14 +159,14 @@ def check_user():
     if isexist:
         # try:
         print(path," found!")
-        write_chat({"role":"user","content":prompt},path)
+        write_chat({"role":"user","content":prompt,str(datetime.datetime.now())},path)
         # print()
         chats = get_chats(path)
         print(chats)
         send = gpt(chats,prompt)
         reply = send.choices[0].message.content
         print("reply    ",reply)
-        write_chat({"role":"assistant","content":reply},path)
+        write_chat({"role":"assistant","content":reply,str(datetime.datetime.now())},path)
         return {"message":reply,"status":"OK"}
         # except:
         #     return {"message":"something went wrong!","status":"404"}
@@ -179,10 +195,73 @@ def get_chatss():
     ids = request.json['user_id']
     return jsonpickle.encode(get_chats(ids))
 
+################################# get_latest_datetime_per_json ####################################
+def get_latest_datetime_per_json(directory_path):
+    """Get the latest datetime from each JSON file in the directory."""
+    latest_datetimes = {}
+    for filename in os.listdir(directory_path):
+        if filename.endswith('.json'):
+            filepath = os.path.join(directory_path, filename)
+            with open(filepath, 'r', encoding='utf-8') as file:
+                data = json.load(file)['chat']
+                # Find the latest datetime in this file
+                latest_datetime = max(chat['datetime'] for chat in data)
+                # Store it in a dictionary with the filename without extension
+                latest_datetimes[os.path.splitext(filename)[0]] = latest_datetime
+    return latest_datetimes
 
+
+
+####################   NEW ENPOINT GET CHAT ##############################
+@app.route('/get_chats', methods=['POST'])
+def get_chatss():
+    ids = request.json['user_id']
+    return jsonpickle.encode(get_chats(ids))
+
+################################# get user number and last message time  ####################################
+@app.route('/get_user', methods=['POST'])
+def get_user():
+    directory_path = 'chats/'  # Update this path
+    datetime_info = get_latest_datetime_per_json(directory_path)
+    print(datetime_info)
+    
+
+################################# ANALYSIS START HERE ####################################
+def load_chats(directory_path):
+    """ Load chat data from multiple JSON files in a given directory. """
+    chats = []
+    for filename in os.listdir(directory_path):
+        if filename.endswith('.json'):  # Ensure the file is a JSON file
+            file_path = os.path.join(directory_path, filename)
+            with open(file_path, 'r', encoding='utf-8') as file:
+                chats.extend(json.load(file)['chat'])
+    return chats
+
+def count_keywords(chat_data):
+    """ Count keywords in chat data, excluding stop words. """
+    word_counts = Counter()
+    for chat in chat_data:
+        # Assuming the chat is a list of dictionaries with keys 'user' and 'assistant'
+        user_words = word_tokenize(chat['content'].lower())
+        # assistant_words = word_tokenize(chat['assistant'].lower())
+        
+        # Filter out stop words and count the rest
+        words = [word for word in user_words  if word.isalpha() and word not in stop_words]
+        word_counts.update(words)
+    
+    return word_counts
+
+################################# Fetch most used keywords ####################################
+@app.route('/keywords', methods=['POST'])
+def keywords():
+    directory_path = 'chats/'  # Update this path
+    all_chats = load_chats(directory_path)
+    keyword_counts = count_keywords(all_chats)
+    print(keyword_counts.most_common(10))
+    return keyword_counts.most_common(10)
 
 
 
 if __name__ == '__main__':
-    app.run(port=5008)
+    app.run(port=5008,host='0.0.0.0')
     
