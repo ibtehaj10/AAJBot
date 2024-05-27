@@ -225,6 +225,7 @@ def get_user():
     directory_path = 'chats/'  # Update this path
     datetime_info = get_latest_datetime_per_json(directory_path)
     print(datetime_info)
+    return datetime_info
     
 
 ################################# ANALYSIS START HERE ####################################
