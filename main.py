@@ -160,14 +160,14 @@ def check_user():
     if isexist:
         # try:
         print(path," found!")
-        write_chat({"role":"user","content":prompt,"datetime":str(datetime.datetime.now())},path)
+        write_chat({"role":"user","content":prompt,"datetime":str(datetime.now())},path)
         # print()
         chats = get_chats(path)
         print(chats)
         send = gpt(chats,prompt)
         reply = send.choices[0].message.content
         print("reply    ",reply)
-        write_chat({"role":"assistant","content":reply,"datetime":str(datetime.datetime.now())},path)
+        write_chat({"role":"assistant","content":reply,"datetime":str(datetime.now())},path)
         return {"message":reply,"status":"OK"}
         # except:
         #     return {"message":"something went wrong!","status":"404"}
