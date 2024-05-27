@@ -183,6 +183,26 @@ def check_user():
         reply = check_user()
         return reply
 
+
+################################# get_latest_datetime_per_json ####################################
+def get_latest_datetime_per_json(directory_path):
+    """Get the latest datetime from each JSON file in the directory."""
+    latest_datetimes = {}
+    for filename in os.listdir(directory_path):
+        if filename.endswith('.json'):
+            filepath = os.path.join(directory_path, filename)
+            with open(filepath, 'r', encoding='utf-8') as file:
+                data = json.load(file)['chat']
+                # Find the latest datetime in this file
+                latest_datetime = max(chat['datetime'] for chat in data)
+                # Store it in a dictionary with the filename without extension
+                latest_datetimes[os.path.splitext(filename)[0]] = latest_datetime
+    return latest_datetimes
+
+
+
+
+
 ####################   NEW ENPOINT GET CHAT ##############################
 @app.route('/get_chats', methods=['POST'])
 def get_chatss():
@@ -190,6 +210,14 @@ def get_chatss():
     return jsonpickle.encode(get_chats(ids))
 
 
+
+################################# get user number and last message time  ####################################
+@app.route('/get_user', methods=['POST'])
+def get_user():
+    directory_path = 'chats/'  # Update this path
+    datetime_info = get_latest_datetime_per_json(directory_path)
+    print(datetime_info)
+    
 
 ################################# ANALYSIS START HERE ####################################
 def load_chats(directory_path):
@@ -216,14 +244,15 @@ def count_keywords(chat_data):
     
     return word_counts
 
-
-@app.route('/keywords', methods=['GET'])
+################################# Fetch most used keywords ####################################
+@app.route('/keywords', methods=['POST'])
 def keywords():
     directory_path = 'chats/'  # Update this path
     all_chats = load_chats(directory_path)
     keyword_counts = count_keywords(all_chats)
     print(keyword_counts.most_common(10))
     return keyword_counts.most_common(10)
+
 
 if __name__ == '__main__':
     app.run(port=5008)
