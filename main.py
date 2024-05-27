@@ -24,7 +24,10 @@ from api import apikey
 client = OpenAI(api_key=apikey)
 app = Flask(__name__)
 
-
+nltk.download('punkt')
+nltk.download('stopwords')
+stop_words = set(stopwords.words('english'))
+common_words_to_ignore = {'is', 'am', 'are',"i"}
 embeddings = OpenAIEmbeddings(openai_api_key=apikey)
 db = Chroma(persist_directory="mydb", embedding_function=embeddings)
 # db.get()
