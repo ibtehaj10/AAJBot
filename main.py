@@ -212,11 +212,11 @@ def get_latest_datetime_per_json(directory_path):
 
 
 
-####################   NEW ENPOINT GET CHAT ##############################
-@app.route('/get_chats', methods=['POST'])
-def get_chatss():
-    ids = request.json['user_id']
-    return jsonpickle.encode(get_chats(ids))
+# ####################   NEW ENPOINT GET CHAT ##############################
+# @app.route('/get_chats', methods=['POST'])
+# def get_chatss():
+#     ids = request.json['user_id']
+#     return jsonpickle.encode(get_chats(ids))
 
 ################################# get user number and last message time  ####################################
 @app.route('/get_user', methods=['POST'])
