@@ -13,7 +13,7 @@ import openai
 import json
 import jsonpickle
 from langchain.document_loaders import PyPDFLoader
-# from langchain.embeddings.sentence_transformer import SentenceTransformerEmbeddings
+from dateutil import parser
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
@@ -266,6 +266,29 @@ def keywords():
     print(keyword_counts.most_common(10))
     return keyword_counts.most_common(10)
 
+################################# Time Analysys ####################################
+def load_chats_and_count_hours(directory_path):
+    """ Load chat data from JSON files and count messages by hour. """
+    hour_counts = Counter()
+    for filename in os.listdir(directory_path):
+        if filename.endswith('.json'):
+            file_path = os.path.join(directory_path, filename)
+            with open(file_path, 'r', encoding='utf-8') as file:
+                chats = json.load(file)['chat']
+                for chat in chats:
+                    # Parse the datetime string and extract the hour
+                    datetime_obj = parser.parse(chat['datetime'])
+                    hour = datetime_obj.hour
+                    hour_counts[hour] += 1
+    return hour_counts
+
+################################# Get most messsage in an hour ####################################
+@app.route('/hours', methods=['POST'])
+def hours():
+    directory_path = 'chats/'  # Update this path
+    hour_counts = load_chats_and_count_hours(directory_path)
+    most_common_hour = hour_counts.most_common(2)  # Get the hour with the most messages
+    return most_common_hour
 
 
 if __name__ == '__main__':
