@@ -21,6 +21,7 @@ from langchain.chat_models import ChatOpenAI
 apikeys = apikey
 from openai import OpenAI
 from api import apikey
+import pytz
 client = OpenAI(api_key=apikey)
 app = Flask(__name__)
 
@@ -33,6 +34,13 @@ db = Chroma(persist_directory="mydb", embedding_function=embeddings)
 # db.get()
 # embedding_function = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
 # db = Chroma.from_documents(docs, embedding_function)
+
+
+
+pkt_timezone = pytz.timezone('Asia/Karachi')
+
+# Get current time in local time
+
 ############################## 
 def retrieve_combined_documents(query, max_combined_docs=4):
     retriever = db.as_retriever(search_type="mmr")
@@ -162,15 +170,16 @@ def check_user():
     isexist = os.path.exists(path)
     if isexist:
         # try:
+        local_time = datetime.now()
         print(path," found!")
-        write_chat({"role":"user","content":prompt,"datetime":str(datetime.now())},path)
+        write_chat({"role":"user","content":prompt,"datetime":str(local_time)},path)
         # print()
         chats = get_chats(path)
         print(chats)
         send = gpt(chats,prompt)
         reply = send.choices[0].message.content
         print("reply    ",reply)
-        write_chat({"role":"assistant","content":reply,"datetime":str(datetime.now())},path)
+        write_chat({"role":"assistant","content":reply,"datetime":str(local_time)},path)
         return {"message":reply,"status":"OK"}
         # except:
         #     return {"message":"something went wrong!","status":"404"}
