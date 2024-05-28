@@ -90,4 +90,4 @@ def hello(client: WhatsApp, message: Message):
 # def click_me(client: WhatsApp, clb: CallbackButton):
 #     clb.reply_text('You clicked me!')
 
-flask_app.run(port=5001)  # Run the flask app to start the webhook
+flask_app.run(port=5001,host='0.0.0.0')  # Run the flask app to start the webhook
