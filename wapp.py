@@ -84,7 +84,7 @@ def hello(client: WhatsApp, message: Message):
 
 
 
-    print('pdf send',filename)
+    # print('pdf send',filename)
 
 # @wa.on_callback_button(CallbackFilter.data_startswith('id'))
 # def click_me(client: WhatsApp, clb: CallbackButton):
