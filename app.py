@@ -27,7 +27,7 @@ app = Flask(__name__)
 nltk.download('punkt')
 nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
-common_words_to_ignore = {'is', 'am', 'are',"i"}
+common_words_to_ignore = {'is', 'am', 'are',"I", "want","could","should","my","our","with"}
 embeddings = OpenAIEmbeddings(openai_api_key=apikeys)
 db = Chroma(persist_directory="mydb", embedding_function=embeddings)
 # db.get()
