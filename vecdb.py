@@ -52,9 +52,10 @@ def process_files():
     return jsonify({'message': 'New Database has been created...!!!'}), 200
 
 
-UPLOAD_FOLDER_PKG = 'birthday/'
+
 @app.route('/package', methods=['POST'])
 def package():
+    UPLOAD_FOLDER = 'birthday/'
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'}), 400
     file = request.files['file']
@@ -62,7 +63,7 @@ def package():
         return jsonify({'error': 'No selected file'}), 400
     if file and file.filename.endswith('.pdf'):
         filename = secure_filename(file.filename)
-        file_path = os.path.join(app.config['UPLOAD_FOLDER_PKG'], filename)
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(file_path)
         return jsonify({'message': 'File uploaded successfully'}), 200
     else:
