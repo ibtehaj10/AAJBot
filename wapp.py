@@ -53,19 +53,19 @@ def hello(client: WhatsApp, message: Message):
         if 'bounce' in reply :
             filename = 'Bouncekhi.pdf'
         elif 'giggle' in reply:
-            filename ="Giggle Town.pdf"
+            filename ="Giggle_Town.pdf"
         elif 'northwall' in reply:
-            filename = "Peekabear North Walk.pdf"
+            filename = "Peekabear_North_Walk.pdf"
         elif 'peekabearocean' in reply:
-            filename = "Peekabear Oocean Mall.pdf"
+            filename = "Peekabear_Oocean_Mall.pdf"
         elif 'hyderabad' in reply.lower():
-            filename = "Super Space Hyderabad.pdf"
+            filename = "Super_Space_Hyderabad.pdf"
         elif 'millennium' in reply.lower():
-            filename = "Super Space Millennium Mall.pdf"
+            filename = "Super_Space_Millennium_Mall.pdf"
         elif 'superspaceocean' in reply.lower():
-            filename = "Super Space Ocean Mall.pdf"
+            filename = "Super_Space_Ocean_Mall.pdf"
         elif 'shareef' in reply.lower():
-            filename = "Super Space Shareef Complex.pdf"
+            filename = "Super_Space_Shareef_Complex.pdf"
 
 
 
