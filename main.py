@@ -242,7 +242,7 @@ def get_latest_datetime_per_json(directory_path):
 #     return jsonpickle.encode(get_chats(ids))
 
 ################################# get user number and last message time  ####################################
-@app.route('/get_user', methods=['POST'])
+@app.route('/get_user', methods=['GET'])
 def get_user():
     directory_path = 'chats/'  # Update this path
     datetime_info = get_latest_datetime_per_json(directory_path)
@@ -276,7 +276,7 @@ def count_keywords(chat_data):
     return word_counts
 
 ################################# Fetch most used keywords ####################################
-@app.route('/keywords', methods=['POST'])
+@app.route('/keywords', methods=['GET'])
 def keywords():
     directory_path = 'chats/'  # Update this path
     all_chats = load_chats(directory_path)
@@ -301,7 +301,7 @@ def load_chats_and_count_hours(directory_path):
     return hour_counts
 
 ################################# Get most messsage in an hour ####################################
-@app.route('/hours', methods=['POST'])
+@app.route('/hours', methods=['GET'])
 def hours():
     directory_path = 'chats/'  # Update this path
     hour_counts = load_chats_and_count_hours(directory_path)
