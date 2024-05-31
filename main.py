@@ -21,14 +21,16 @@ from langchain.chat_models import ChatOpenAI
 apikeys = apikey
 from openai import OpenAI
 from api import apikey
+from flask_cors import CORS
+
 import pytz
 client = OpenAI(api_key=apikey)
 app = Flask(__name__)
-
+CORS(app)
 nltk.download('punkt')
 nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
-common_words_to_ignore = {'is', 'am', 'are',"i"}
+common_words_to_ignore = {'is', 'am', 'are',"I", "want","could","should","my","our","with"}
 embeddings = OpenAIEmbeddings(openai_api_key=apikey)
 db = Chroma(persist_directory="mydb", embedding_function=embeddings)
 # db.get()
