@@ -311,14 +311,23 @@ def load_chats_and_count_hours(directory_path):
                     datetime_obj = parser.parse(chat['datetime'])
                     hour = datetime_obj.hour
                     hour_counts[hour] += 1
-    return hour_counts
+                    # print(hour_counts)
+    final_li = []
+    print(hour_counts.most_common())
+    for i in hour_counts.most_common():
+        obj = {}
+        obj['hour']=str(i[0])
+        obj['frequecy']=str(i[1])
+        final_li.append(obj)
+
+    return final_li
 
 ################################# Get most messsage in an hour ####################################
 @app.route('/hours', methods=['GET'])
 def hours():
     directory_path = 'chats/'  # Update this path
     hour_counts = load_chats_and_count_hours(directory_path)
-    most_common_hour = hour_counts.most_common(2)  # Get the hour with the most messages
+    most_common_hour = hour_counts  # Get the hour with the most messages
     return most_common_hour
 
 
