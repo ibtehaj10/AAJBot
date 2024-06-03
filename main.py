@@ -347,7 +347,14 @@ def load_chats_and_count_msgs(directory_path):
 
 
     return len(chatss)
-
+def list_json_filenames(directory_path):
+    """List the names of all JSON files in the directory, excluding their extensions."""
+    json_filenames = []
+    for filename in os.listdir(directory_path):
+        if filename.endswith('.json'):
+            # Strip the extension and append to the list
+            json_filenames.append(os.path.splitext(filename)[0])
+    return json_filenames
 
 @app.route('/count', methods=['GET'])
 def count():
