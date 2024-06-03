@@ -228,9 +228,17 @@ def get_latest_datetime_per_json(directory_path):
             with open(filepath, 'r', encoding='utf-8') as file:
                 data = json.load(file)['chat']
                 # Find the latest datetime in this file
-                latest_datetime = max(chat['datetime'] for chat in data)
+
+                latest_date = max(chat['datetime'] for chat in data)
+                dt = datetime.strptime(latest_date, '%Y-%m-%d %H:%M:%S.%f')
+                time = str(dt.timetuple().tm_hour) +":"+ str(dt.timetuple().tm_min)
+                date = str(dt.date())
+                # print(dt)
+                latest_datetimes["user"] = os.path.splitext(filename)[0]
+                latest_datetimes["last_msg_date"] = date
+                latest_datetimes["last_msg_time"] = time
                 # Store it in a dictionary with the filename without extension
-                latest_datetimes[os.path.splitext(filename)[0]] = latest_datetime
+                # latest_datetimes[os.path.splitext(filename)[0]] = latest_date
     return latest_datetimes
 
 
