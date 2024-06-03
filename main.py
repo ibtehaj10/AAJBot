@@ -221,8 +221,10 @@ def get_chatss():
 ################################# get_latest_datetime_per_json ####################################
 def get_latest_datetime_per_json(directory_path):
     """Get the latest datetime from each JSON file in the directory."""
+    li = []
     latest_datetimes = {}
     for filename in os.listdir(directory_path):
+        print(filename)
         if filename.endswith('.json'):
             filepath = os.path.join(directory_path, filename)
             with open(filepath, 'r', encoding='utf-8') as file:
@@ -237,10 +239,10 @@ def get_latest_datetime_per_json(directory_path):
                 latest_datetimes["user"] = os.path.splitext(filename)[0]
                 latest_datetimes["last_msg_date"] = date
                 latest_datetimes["last_msg_time"] = time
+                li.append(latest_datetimes)
                 # Store it in a dictionary with the filename without extension
                 # latest_datetimes[os.path.splitext(filename)[0]] = latest_date
-    return latest_datetimes
-
+    return li
 
 
 # ####################   NEW ENPOINT GET CHAT ##############################
