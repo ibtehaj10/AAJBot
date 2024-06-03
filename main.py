@@ -222,9 +222,9 @@ def get_chatss():
 def get_latest_datetime_per_json(directory_path):
     """Get the latest datetime from each JSON file in the directory."""
     li = []
-    latest_datetimes = {}
+    
     for filename in os.listdir(directory_path):
-        print(filename)
+        # print(filename)
         if filename.endswith('.json'):
             filepath = os.path.join(directory_path, filename)
             with open(filepath, 'r', encoding='utf-8') as file:
@@ -232,13 +232,16 @@ def get_latest_datetime_per_json(directory_path):
                 # Find the latest datetime in this file
 
                 latest_date = max(chat['datetime'] for chat in data)
+                msg = [chat['content'] for chat in data]
                 dt = datetime.strptime(latest_date, '%Y-%m-%d %H:%M:%S.%f')
                 time = str(dt.timetuple().tm_hour) +":"+ str(dt.timetuple().tm_min)
                 date = str(dt.date())
                 # print(dt)
-                latest_datetimes["user"] = os.path.splitext(filename)[0]
+                latest_datetimes = {}
+                latest_datetimes["user_phone"] = os.path.splitext(filename)[0]
                 latest_datetimes["last_msg_date"] = date
                 latest_datetimes["last_msg_time"] = time
+                latest_datetimes["last_msg"] = msg[-1]
                 li.append(latest_datetimes)
                 # Store it in a dictionary with the filename without extension
                 # latest_datetimes[os.path.splitext(filename)[0]] = latest_date
