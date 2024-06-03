@@ -350,7 +350,7 @@ def load_chats_and_count_msgs(directory_path):
 
 
 @app.route('/count', methods=['GET'])
-def hours():
+def count():
     a= len(list_json_filenames('chats/'))
     b = load_chats_and_count_msgs('chats/')
     total_chats = {"total_chats":a,"total_message":b}
