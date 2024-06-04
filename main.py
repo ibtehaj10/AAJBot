@@ -316,8 +316,8 @@ def load_chats_and_count_hours(directory_path):
     print(hour_counts.most_common())
     for i in hour_counts.most_common():
         obj = {}
-        obj['hour']=str(i[0])
-        obj['frequecy']=str(i[1])
+        obj['hour']=int(i[0])
+        obj['frequecy']=int(i[1])
         final_li.append(obj)
 
     return final_li
@@ -329,6 +329,9 @@ def hours():
     hour_counts = load_chats_and_count_hours(directory_path)
     most_common_hour = hour_counts  # Get the hour with the most messages
     return most_common_hour
+
+
+
 ################################# TOTAL CHATS AND MESSAGES ####################################
 def load_chats_and_count_msgs(directory_path):
     """ Load chat data from JSON files and count messages by hour. """
