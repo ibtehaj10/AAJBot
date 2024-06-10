@@ -210,7 +210,9 @@ def check_user():
             outfile.write(json_object)
         reply = check_user()
         return reply
-
+@app.route('/')
+def home():
+    return "chatbot is up"
 ####################   NEW ENPOINT GET CHAT ##############################
 @app.route('/get_chats', methods=['POST'])
 def get_chatss():
