@@ -22,10 +22,11 @@ apikeys = apikey
 from openai import OpenAI
 from api import apikey
 from flask_cors import CORS
-
+from flask_sslify import SSLify
 import pytz
 client = OpenAI(api_key=apikey)
 app = Flask(__name__)
+sslify = SSLify(app)
 CORS(app)
 nltk.download('punkt')
 nltk.download('stopwords')
@@ -370,5 +371,5 @@ def count():
 
 
 if __name__ == '__main__':
-    app.run(port=5008,host='0.0.0.0')
+    app.run(port=5008,host='0.0.0.0',ssl_context=('cert.pem', 'key.pem'))
     
