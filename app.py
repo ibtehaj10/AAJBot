@@ -138,7 +138,9 @@ def write_chat(new_data, id):
         json.dump(file_data, file, indent = 4)
 
 
-
+@app.route('/')
+def check_user():
+    return "chatbot is up"
 ################################ CHECK IF USER IS ALREADY EXIST IF NOT CREATE ONE ELSE RETURN GPT REPLY ##################
 @app.route('/chat', methods=['POST'])
 def check_user():
