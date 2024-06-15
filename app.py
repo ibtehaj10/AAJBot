@@ -139,7 +139,7 @@ def write_chat(new_data, id):
 
 
 @app.route('/')
-def check_user():
+def home():
     return "chatbot is up"
 ################################ CHECK IF USER IS ALREADY EXIST IF NOT CREATE ONE ELSE RETURN GPT REPLY ##################
 @app.route('/chat', methods=['POST'])
