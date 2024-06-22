@@ -30,7 +30,7 @@ def gpt(uid,text):
 flask_app = Flask(__name__)
 wa = WhatsApp(
     phone_id='229272100273078',
-    token='EABkWqVSvZBZCcBO6fNk4ZCe2djoIeIpXGCeFerwEQ221JsLPVPlevwDXG0mdHcOmSKU1ReyVw9BmTLYrvw4cja9PrjgaUVUxHZBckjE0ERBU5jfwnOk6KmClMndIYZC2KngTSzqaN7dJcsZB9CG4k43LOJTztdF5rKoPPwbBSTmgUgCoQbAqlT0ghXUcwA9J5j',
+    token='EABkWqVSvZBZCcBOZBji2inXYepBZCF5Omhu0fgtKsFMjOJ0elZBJvvRJuLXgMCzyHhN5i8VR7LZCSJ0SkZAnrvFkPS6EjhR0VwjZBP7RUyxqN6O0iZBQNtdKRwMKcB2vGwWmI9wYYSepGAe6LhyZAtMlJHoGqChE4uDzZB3hMlvqEkZB46fq72tWT0LgFg6I1UM5jMZB5',
     server=flask_app,
     verify_token='asd',
 )
