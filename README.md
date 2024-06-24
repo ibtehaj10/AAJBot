@@ -41,7 +41,7 @@ export WHATSAPP_VERIFY_TOKEN='your_whatsapp_verify_token'
 Start the Flask server for the chatbot API:
 
 ```sh
-Copy code
+
 python main.py
 ```
 This will run the chatbot on http://0.0.0.0:5008.
@@ -56,8 +56,7 @@ This will run the server on http://0.0.0.0:5005.
 
 - Running the WhatsApp Integration (wapp.py)
 Start the Flask server for WhatsApp integration:
-```
-sh
+```sh
 python wapp.py
 ```
 This will run the WhatsApp integration on http://0.0.0.0:5001.
