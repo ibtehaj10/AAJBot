@@ -1,19 +1,19 @@
-#AAJBot - WhatsApp Integrated AI Chatbot
+# AAJBot - WhatsApp Integrated AI Chatbot
 
 AAJBot is a WhatsApp integrated AI chatbot designed to assist users with queries related to AA Joyland products and services. The bot can manage user interactions, handle document uploads, and perform chat analysis.
 
-#Project Structure
+## Project Structure
 - main.py: Handles the core chatbot functionalities, including user management, interaction with OpenAI API, and chat analysis.
 - vecdb.py: Provides API endpoints for uploading new documents to the vector database, creating a knowledge base for the chatbot.
 - wapp.py: Manages the integration with WhatsApp using the pywa library, allowing the bot to interact with users directly on WhatsApp.
   
-#Prerequisites
+## Prerequisites
 - Python 3.7 or higher
 - Flask
 - OpenAI API Key
 - pywa library
 
-#Installation
+## Installation
 Clone the repository:
 
 ```sh
@@ -27,7 +27,7 @@ Install the required packages:
 
 pip install -r requirements.txt
 ```
-#Set up your environment variables for OpenAI API and WhatsApp credentials:
+## Set up your environment variables for OpenAI API and WhatsApp credentials:
 
 ```sh
 
@@ -36,7 +36,7 @@ export WHATSAPP_PHONE_ID='your_whatsapp_phone_id'
 export WHATSAPP_TOKEN='your_whatsapp_token'
 export WHATSAPP_VERIFY_TOKEN='your_whatsapp_verify_token'
 ```
-#Usage
+## Usage
 - Running the Chatbot API (main.py)
 Start the Flask server for the chatbot API:
 
