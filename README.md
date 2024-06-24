@@ -17,27 +17,27 @@ AAJBot is a WhatsApp integrated AI chatbot designed to assist users with queries
 Clone the repository:
 
 ```sh
-Copy code
+
 git clone https://github.com/yourusername/AAJBot.git
 ```
 cd AAJBot
 Install the required packages:
 
 ```sh
-Copy code
+
 pip install -r requirements.txt
 ```
 #Set up your environment variables for OpenAI API and WhatsApp credentials:
 
 ```sh
-Copy code
+
 export OPENAI_API_KEY='your_openai_api_key'
 export WHATSAPP_PHONE_ID='your_whatsapp_phone_id'
 export WHATSAPP_TOKEN='your_whatsapp_token'
 export WHATSAPP_VERIFY_TOKEN='your_whatsapp_verify_token'
 ```
 #Usage
-Running the Chatbot API (main.py)
+- Running the Chatbot API (main.py)
 Start the Flask server for the chatbot API:
 
 ```sh
@@ -46,22 +46,22 @@ python main.py
 ```
 This will run the chatbot on http://0.0.0.0:5008.
 
-Running the Vector Database API (vecdb.py)
+- Running the Vector Database API (vecdb.py)
 Start the Flask server for document upload and processing:
 
 ```sh
-Copy code
 python vecdb.py
-This will run the server on http://0.0.0.0:5005.
 ```
-Running the WhatsApp Integration (wapp.py)
+This will run the server on http://0.0.0.0:5005.
+
+- Running the WhatsApp Integration (wapp.py)
 Start the Flask server for WhatsApp integration:
 ```
 sh
-Copy code
 python wapp.py
-This will run the WhatsApp integration on http://0.0.0.0:5001.
 ```
+This will run the WhatsApp integration on http://0.0.0.0:5001.
+
 #API Endpoints
 
 main.py
