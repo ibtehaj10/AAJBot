@@ -1,0 +1,13 @@
+Flask==2.3.2
+flask-cors==3.0.10
+requests==2.31.0
+nltk==3.8.1
+pandas==1.5.3
+openai==0.27.2
+jsonpickle==3.0.1
+langchain==0.0.171
+pytz==2023.3
+dateutil==2.8.2
+pywa==1.1.0
+werkzeug==2.3.2
+chromadb
