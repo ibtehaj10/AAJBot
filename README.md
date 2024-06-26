@@ -18,7 +18,8 @@ Clone the repository:
 
 ```sh
 
-git clone [https://github.com/yourusername/AAJBot.git](https://github.com/ibtehaj10/AAJBot.git)
+git clone https://github.com/yourusername/AAJBot.git
+
 ```
 cd AAJBot
 Install the required packages:
