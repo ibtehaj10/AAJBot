@@ -18,7 +18,7 @@ Clone the repository:
 
 ```sh
 
-git clone https://github.com/yourusername/AAJBot.git
+git clone https://github.com/ibtehaj10/AAJBot.git
 
 ```
 cd AAJBot
