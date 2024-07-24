@@ -46,7 +46,7 @@ def process_files():
 
     embeddings = OpenAIEmbeddings(openai_api_key=apikey)
     for i in range(len(pdfss)):
-        db = Chroma.from_documents(pdfss[i], embeddings, persist_directory="mydbs")
+        db = Chroma.from_documents(pdfss[i], embeddings, persist_directory="mydb")
         db.persist()
 
     return jsonify({'message': 'New Database has been created...!!!'}), 200
