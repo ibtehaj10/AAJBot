@@ -133,7 +133,7 @@ IMPORTNAT: Keep you answers short
     # openai.api_key = apikeys
     print('&&&&&&&&&&&&^^^^^^^^^^^^%$######################$%^&*((((((((((((((()))))))))))))))')
     completion = client.chat.completions.create(
-    model="gpt-4-turbo-preview", 
+    model="gpt-4o", 
     messages=new_inp)
     print(completion)
     return completion
