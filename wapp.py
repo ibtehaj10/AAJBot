@@ -14,7 +14,7 @@ def gpt(uid,text):
         "prompt":text
 
     }
-    r = requests.post('https://chatbot.aajoyland.com/chat',headers=headers,json=body)
+    r = requests.post('http://localhost/chat',headers=headers,json=body)
     print(r)
     ans = r.json()
     print(ans)
