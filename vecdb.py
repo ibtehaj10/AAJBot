@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
+
 from werkzeug.utils import secure_filename
 import os
 from langchain.document_loaders import PyPDFLoader
@@ -19,6 +20,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # Route to upload PDF files
 @app.route('/upload', methods=['POST'])
+@cross_origin()
 def upload_file():
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'}), 400
@@ -35,6 +37,7 @@ def upload_file():
 
 # Route to process uploaded PDF files
 @app.route('/process', methods=['GET'])
+@cross_origin()
 def process_files():
     pdfss = []
     for file in os.listdir(UPLOAD_FOLDER):
@@ -54,6 +57,8 @@ def process_files():
 
 
 @app.route('/package', methods=['POST'])
+@cross_origin()
+
 def package():
     UPLOAD_FOLDER_PKG= 'birthday/'
     app.config['UPLOAD_FOLDER_PKG'] = UPLOAD_FOLDER_PKG
