@@ -282,7 +282,7 @@ def count_keywords(chat_data):
     word_counts = Counter()
     for chat in chat_data:
         # Assuming the chat is a list of dictionaries with keys 'user' and 'assistant'
-        user_words = word_tokenize(chat['content'].lower())
+        user_words = word_tokenize(str(chat['content']).lower())
         # assistant_words = word_tokenize(chat['assistant'].lower())
         
         # Filter out stop words and count the rest
